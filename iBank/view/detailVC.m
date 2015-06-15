@@ -17,7 +17,7 @@
 #import "SRRefreshView.h"
 
 
-@interface detailVC ()<UITableViewDataSource,UITableViewDelegate,SRRefreshDelegate>
+@interface detailVC ()<UITableViewDataSource,UITableViewDelegate,SRRefreshDelegate,UIAlertViewDelegate>
 {
     qryAcctDetailService *_qryAcctDetailService;
     setFavAcctService *_setFavAcctService;
@@ -35,6 +35,7 @@
     int _pageTotal;
     NSString *_year;
     NSString *_month;
+    UIAlertView *_confirmAV;
 }
 
 @property IBOutlet UITableView *tableView;
@@ -101,7 +102,7 @@
     _tableView.dataSource = self;
     _refreshView = [[SRRefreshView alloc] init];
     _refreshView.delegate = self;
-    _refreshView.upInset = 20;
+    _refreshView.upInset = 0;
     _refreshView.slimeMissWhenGoingBack = YES;
     _refreshView.slime.bodyColor = [UIColor grayColor];
     _refreshView.slime.skinColor = [UIColor grayColor];
@@ -125,8 +126,12 @@
     }
     _currencyTypeLabel.text = [NSString stringWithFormat:@"币种：%@", type];
     NSDateComponents *components = [Utility currentDateComponents];
-    _year = [NSString stringWithFormat:@"%ld", components.year];
-    _month = [NSString stringWithFormat:@"%02ld", components.month];
+    if( !_year ){
+        _year = [NSString stringWithFormat:@"%ld", components.year];
+    }
+    if( !_month ){
+        _month = [NSString stringWithFormat:@"%02ld", components.month];
+    }
     [_yearMonthButton setTitle:[NSString stringWithFormat:@"%@-%@", _year, _month] forState:UIControlStateNormal];
     __weak detailVC *weakSelf = self;
     _qryAcctDetailService = [[qryAcctDetailService alloc] init];
@@ -308,12 +313,14 @@
 
 - (IBAction)onTouchFavorite:(id)sender
 {
-    _isFavorite = !_isFavorite;
-    _iv = [indicatorView view];
-    [_iv showAtMainWindow];
-    _setFavAcctService.accountId = _accountId;
-    _setFavAcctService.favorite = _isFavorite;
-    [_setFavAcctService request];
+    if( _isFavorite ){
+        NSString *message = [NSString stringWithFormat:@"是否取消对帐号%@的关注？", _account];
+        _confirmAV = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+        [_confirmAV show];
+    }
+    else{
+        [self changeFavorite];
+    }
 }
 
 - (IBAction)onTouchClose:(id)sender
@@ -343,6 +350,15 @@
     [_qryAcctDetailService request];
 }
 
+- (void)changeFavorite
+{
+    _isFavorite = !_isFavorite;
+    _iv = [indicatorView view];
+    [_iv showAtMainWindow];
+    _setFavAcctService.accountId = _accountId;
+    _setFavAcctService.favorite = _isFavorite;
+    [_setFavAcctService request];
+}
 
 
 #pragma mark - slimeRefresh delegate
@@ -368,6 +384,15 @@
 {
     if( !_isRefreshing ){
         [_refreshView scrollViewDidEndDraging];
+    }
+}
+
+#pragma mark- UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( alertView == _confirmAV && buttonIndex == 1 ){
+        [self changeFavorite];
     }
 }
 

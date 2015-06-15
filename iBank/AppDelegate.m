@@ -31,25 +31,29 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
+    [dataHelper helper].lastTouchTimestamp = timestamp;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    if( ![dataHelper helper].sessionid ){
-        return;
-    }
-    
     NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
-    int interval = [dataHelper helper].timeoutInterval * 60;
-    if( [dataHelper helper].lastTouchTimestamp > 0 && timestamp - [dataHelper helper].lastTouchTimestamp > interval ){
-        if( [dataHelper helper].loginViewController ){
-            [[dataHelper helper].loginViewController prepareLoginAgain];
-        }
-        UINavigationController *nav = (UINavigationController*) self.window.rootViewController;
-        [nav popToRootViewControllerAnimated:YES];
+    if( ![dataHelper helper].sessionid ){
+        [dataHelper helper].lastTouchTimestamp = timestamp;
     }
     else{
-        [dataHelper helper].lastTouchTimestamp = timestamp;
+        [[aliveHelper helper] fire];
+        int interval = [dataHelper helper].timeoutInterval * 60;
+        if( [dataHelper helper].lastTouchTimestamp > 0 && timestamp - [dataHelper helper].lastTouchTimestamp > interval ){
+            if( [dataHelper helper].loginViewController ){
+                [[dataHelper helper].loginViewController prepareLoginAgain];
+            }
+            UINavigationController *nav = (UINavigationController*) self.window.rootViewController;
+            [nav popToRootViewControllerAnimated:YES];
+        }
+        else{
+            [dataHelper helper].lastTouchTimestamp = timestamp;
+        }
     }
 }
 
@@ -61,11 +65,35 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"-----*****___");
-    [super touchesBegan:touches withEvent:event];
+    NSLog(@".....1");
+    [super touchesMoved:touches withEvent:event];
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@".....2");
+    [super touchesEnded:touches withEvent:event];
+}
+
+- (UIResponder*)nextResponder
+{
+    NSLog(@".....3");
+    NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
+    [dataHelper helper].lastTouchTimestamp = timestamp;
+    if( [dataHelper helper].sessionid ){
+        ;
+    }
+    else{
+        ;
+    }
+    return [super nextResponder];
+}
+
+- (id)targetForAction:(SEL)action withSender:(id)sender
+{
+    NSLog(@".....5");
+    return [super targetForAction:action withSender:sender];
+}
 @end

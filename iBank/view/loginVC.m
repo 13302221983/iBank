@@ -45,6 +45,7 @@
 @property indicatorView *loginIV;
 @property indicatorView *imageIV;
 @property UIImageView *codeImageView;
+@property UIButton *settingButton;
 
 @end
 
@@ -101,10 +102,17 @@
     _vImgSrv = [[verifyImageService alloc] init];
     _vImgSrv.getImageBlock = ^(UIImage *image, NSString *code, NSString *error){
         [indicatorView dismissOnlyIndicatorAtView:weakSelf.loginView.codeIndicatorView];
-        weakSelf.loginView.codeImageView.image = image;
-        weakSelf.imageSN = code;
+        if( image ){
+            weakSelf.loginView.codeImageView.image = image;
+            weakSelf.imageSN = code;
+        }
+        else{
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"无法获取验证码，请确保网络可用和服务器设置正确后重试！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [av show];
+        }
         weakSelf.loginView.loginButton.enabled = YES;
         weakSelf.loginView.refreshButton.enabled = YES;
+        weakSelf.settingButton.enabled = YES;
     };
     [self requestVerifyCodeImage];
     
@@ -115,9 +123,10 @@
         if( code == 1 ){
             [dataHelper helper].sessionid = data;
             [[aliveHelper helper] startKeepAlive];
+            NSString *account = weakSelf.loginView.accountTextField.text;
+            [dataHelper helper].loginAccount = account;
             if( [dataHelper helper].autoSaveAccount ){
-                [dataHelper helper].loginAccount = weakSelf.loginView.accountTextField.text;
-                [dataHelper helper].savedAccount = weakSelf.loginView.accountTextField.text;
+                [dataHelper helper].savedAccount = account;
                 [[dataHelper helper] saveSettingToFile];
             }
             [weakSelf.navigationController pushViewController:[mainVC viewController] animated:YES];
@@ -187,6 +196,7 @@
 {
     [indicatorView showOnlyIndicatorAtView:_loginView.codeIndicatorView];
     _loginView.refreshButton.enabled = NO;
+    _settingButton.enabled = NO;
     [_vImgSrv request];
 }
 
@@ -201,23 +211,6 @@
     [self doLogin];
 }
 
-- (IBAction)onTouchLogout:(id)sender
-{
-    logoutService *logoutSrv = [[logoutService alloc] init];
-    [logoutSrv request];
-}
-
-- (IBAction)onTouchKeepAlive:(id)sender
-{
-    keepAliveService *keepAliveSrv = [[keepAliveService alloc] init];
-    [keepAliveSrv request];
-}
-
-- (IBAction)onTouchNewMsg:(id)sender
-{
-    newMsgService *newMsgSrv = [[newMsgService alloc] init];
-    [newMsgSrv request];
-}
 
 - (void)onTouchSetting:(id)sender
 {

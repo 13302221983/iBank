@@ -11,6 +11,9 @@
 #import "dataHelper.h"
 
 @interface baseVC ()<UIAlertViewDelegate>
+{
+    UIAlertView *_timeoutAV;
+}
 
 @end
 
@@ -41,8 +44,10 @@
     if( [dataHelper helper].loginViewController ){
         [[dataHelper helper].loginViewController prepareLoginAgain];
     }
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会话超时，请重新登录！" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
-    [av show];
+    if( _timeoutAV ){
+        _timeoutAV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"会话超时，请重新登录！" delegate:self cancelButtonTitle:@"确认" otherButtonTitles: nil];
+        [_timeoutAV show];
+    }
 }
 
 - (void)showMessage:(NSString *)message
@@ -53,7 +58,10 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if( alertView == _timeoutAV ){
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        _timeoutAV = nil;
+    }
 }
 
 

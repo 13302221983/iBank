@@ -152,7 +152,7 @@
     [super viewDidLoad];
     _balanceRefreshingView = [[SRRefreshView alloc] init];
     _balanceRefreshingView.delegate = self;
-    _balanceRefreshingView.upInset = 20;
+    _balanceRefreshingView.upInset = 0;
     _balanceRefreshingView.slimeMissWhenGoingBack = YES;
     _balanceRefreshingView.slime.bodyColor = [UIColor grayColor];
     _balanceRefreshingView.slime.skinColor = [UIColor grayColor];
@@ -163,7 +163,7 @@
     
     _favoritesRefreshingView = [[SRRefreshView alloc] init];
     _favoritesRefreshingView.delegate = self;
-    _favoritesRefreshingView.upInset = 20;
+    _favoritesRefreshingView.upInset = 0;
     _favoritesRefreshingView.slimeMissWhenGoingBack = YES;
     _favoritesRefreshingView.slime.bodyColor = [UIColor grayColor];
     _favoritesRefreshingView.slime.skinColor = [UIColor grayColor];

@@ -249,7 +249,7 @@
         BOOL ssl = [dataHelper helper].useSSL;
         if( ssl != _useSSL || ![server isEqualToString:_serverTextField.text.lowercaseString] )
         {
-            _av = [[UIAlertView alloc] initWithTitle:@"确定要保存？" message:@"如果保存，服务器相关设备将会改变，需要重新登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+            _av = [[UIAlertView alloc] initWithTitle:@"确定要保存？" message:@"如果保存，服务器相关设置将会改变，需要重新登录！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
             [_av show];
         }
         else{
@@ -259,6 +259,8 @@
             [dataHelper helper].autoTimeout = _autoTimeout;
             [dataHelper helper].timeoutInterval = _timeoutInterval;
             [[dataHelper helper] saveSettingToFile];
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存设置成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [av show];
         }
         
     }
@@ -269,6 +271,8 @@
         [dataHelper helper].autoTimeout = _autoTimeout;
         [dataHelper helper].timeoutInterval = _timeoutInterval;
         [[dataHelper helper] saveSettingToFile];
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存设置成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [av show];
     }
 }
 
@@ -315,6 +319,7 @@
 
 - (void)updatTimeoutIntervalLabel
 {
+    if( _timeoutInterval < 5 ) _timeoutInterval = 5;
     NSString *intervalString = [NSString stringWithFormat:@"%d", _timeoutInterval];
     NSString *text = [NSString stringWithFormat:@"%@分钟内无操作自动注销", intervalString];
     NSRange intervalRange = NSMakeRange(0, intervalString.length);
@@ -335,6 +340,10 @@
         [dataHelper helper].autoTimeout = _autoTimeout;
         [dataHelper helper].timeoutInterval = _timeoutInterval;
         [[dataHelper helper] saveSettingToFile];
+        if( [dataHelper helper].loginViewController ){
+            [[dataHelper helper].loginViewController prepareLoginAgain];
+        }
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

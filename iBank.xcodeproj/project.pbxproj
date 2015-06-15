@@ -108,6 +108,7 @@
 		26A2333F1AFCBFC6000ABDB3 /* logo_165x165.png in Resources */ = {isa = PBXBuildFile; fileRef = 26A2333E1AFCBFC6000ABDB3 /* logo_165x165.png */; };
 		26AC06EB1AF9CC3300B5A3F0 /* TextFieldEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AC06EA1AF9CC3300B5A3F0 /* TextFieldEx.m */; };
 		26C76D001B1FEED400B8592D /* news.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76CFF1B1FEED400B8592D /* news.png */; };
+		26C76D031B2D0B1600B8592D /* bankWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C76D021B2D0B1600B8592D /* bankWindow.m */; };
 		26C77C211B018ABD0049B636 /* bankCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26C77C201B018ABD0049B636 /* bankCells.xib */; };
 		26D53EA81AE8A19500A1A33D /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */; };
 		26D53EE21AEB491A00A1A33D /* 刷新认证码-标准状态.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D53EAA1AEB491A00A1A33D /* 刷新认证码-标准状态.png */; };
@@ -325,6 +326,8 @@
 		26AC06E91AF9CC3300B5A3F0 /* TextFieldEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEx.h; sourceTree = "<group>"; };
 		26AC06EA1AF9CC3300B5A3F0 /* TextFieldEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldEx.m; sourceTree = "<group>"; };
 		26C76CFF1B1FEED400B8592D /* news.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news.png; sourceTree = "<group>"; };
+		26C76D011B2D0B1600B8592D /* bankWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bankWindow.h; sourceTree = "<group>"; };
+		26C76D021B2D0B1600B8592D /* bankWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bankWindow.m; sourceTree = "<group>"; };
 		26C77C201B018ABD0049B636 /* bankCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bankCells.xib; sourceTree = "<group>"; };
 		26D53EA61AE8A19500A1A33D /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -627,6 +630,8 @@
 				26904EDB1B08F66900487C43 /* userCell.xib */,
 				26904EDD1B09391C00487C43 /* msgListVC.h */,
 				26904EDE1B09391C00487C43 /* msgListVC.m */,
+				26C76D011B2D0B1600B8592D /* bankWindow.h */,
+				26C76D021B2D0B1600B8592D /* bankWindow.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1043,6 +1048,7 @@
 				08DEF1B51B098DEB00CA9E83 /* SRSlimeView.m in Sources */,
 				26904ECE1B08140000487C43 /* SendMsgService.m in Sources */,
 				2664B23E1AE2B33500FA8054 /* webService.m in Sources */,
+				26C76D031B2D0B1600B8592D /* bankWindow.m in Sources */,
 				086B214F1AF713C000E2EC58 /* yearMonthVC.m in Sources */,
 				2612D5DD1AF744A3002B45D9 /* qryAcctDetailService.m in Sources */,
 				2664B24E1AE32D4800FA8054 /* mainVC.m in Sources */,

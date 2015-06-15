@@ -65,7 +65,7 @@
     _tableView.tableFooterView = _footerView;
     _refreshView = [[SRRefreshView alloc] init];
     _refreshView.delegate = self;
-    _refreshView.upInset = 20;
+    _refreshView.upInset = 0;
     _refreshView.slimeMissWhenGoingBack = YES;
     _refreshView.slime.bodyColor = [UIColor grayColor];
     _refreshView.slime.skinColor = [UIColor grayColor];
@@ -272,6 +272,8 @@
         vc.account = [item objectForKey:@"acct"];
         vc.accountId = [[item objectForKey:@"aid"] intValue];
         vc.currencyType = [item objectForKey:@"ccode"];
+        vc.year = _year;
+        vc.month = _month;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

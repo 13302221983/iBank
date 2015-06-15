@@ -21,6 +21,10 @@
 
 @property NSString *currencyType;
 
+@property NSString *year;
+
+@property NSString *month;
+
 + (instancetype)viewController;
 
 @end

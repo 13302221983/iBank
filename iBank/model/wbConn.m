@@ -48,11 +48,15 @@
 
 - (void)request
 {
+    NSString *url;
     if( !self.url || self.url.length == 0 )
     {
-        self.url = [NSString stringWithFormat:@"%@/%@/%@/api?ws=1", [dataHelper helper].host, [dataHelper helper].site, self.package];
+        url = [NSString stringWithFormat:@"%@/%@/%@/api?ws=1", [dataHelper helper].host, [dataHelper helper].site, self.package];
     }
-    NSLog(@"request:%@", self.url);
+    else{
+        url = self.url;
+    }
+    NSLog(@"request:%@", url);
     NSMutableString *soap = [[NSMutableString alloc] initWithString:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"];
     [soap appendString:@"<soap:Envelope "];
     [soap appendString:@"xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\""];
@@ -63,7 +67,7 @@
     [soap appendString:@"\n</soap:Body>\n"];
     [soap appendString:@"</soap:Envelope>\n"];
     NSLog(@"soap:\n%@", soap);
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soap length]];
     [request setValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request setValue: self.soapAction forHTTPHeaderField:@"SOAPAction"];

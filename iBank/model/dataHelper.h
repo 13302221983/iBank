@@ -96,7 +96,7 @@
 
 @property int timeoutInterval; //minutes
 
-@property NSTimeInterval lastTouchTimestamp;
+@property (nonatomic) NSTimeInterval lastTouchTimestamp;
 
 @property (nonatomic) UIImage *logo2Img;
 

@@ -18,4 +18,6 @@
 
 - (void)stopKeepAlive;
 
+- (void)fire;
+
 @end

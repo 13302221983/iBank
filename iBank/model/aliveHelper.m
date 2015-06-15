@@ -81,6 +81,11 @@
     [_timer invalidate];
 }
 
+- (void)fire
+{
+    if( _timer ) [_timer fire];
+}
+
 - (void)onTimer:(NSTimer*)timer
 {
     NSLog(@"%s", __func__);

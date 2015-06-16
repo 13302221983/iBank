@@ -258,6 +258,11 @@
 
 - (IBAction)onTouchYearMonth:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     _pageNum = 1;
     yearMonthVC *vc = [[yearMonthVC alloc] init];
     vc.selectedMonth = _month.integerValue;
@@ -277,6 +282,11 @@
 
 - (IBAction)onTouchNextPage:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     _pageNum++;
     if( _pageNum > _pageTotal )
     {
@@ -288,6 +298,11 @@
 
 - (IBAction)onTouchPrePage:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     _pageNum--;
     if( _pageNum < 1 )
     {
@@ -299,6 +314,11 @@
 
 - (IBAction)onTouchFirstPage:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( _pageNum == 1 ) return;
     _pageNum = 1;
     [self loadData];
@@ -306,6 +326,11 @@
 
 - (IBAction)onTouchLastPage:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( _pageNum == _pageTotal ) return;
     _pageNum = _pageTotal;
     [self loadData];
@@ -313,6 +338,11 @@
 
 - (IBAction)onTouchFavorite:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( _isFavorite ){
         NSString *message = [NSString stringWithFormat:@"是否取消对帐号%@的关注？", _account];
         _confirmAV = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
@@ -331,6 +361,11 @@
 
 - (void)onTouchBack:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

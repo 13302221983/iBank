@@ -62,6 +62,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     MsgObj *msg = [_msgs objectAtIndex:indexPath.row];
     if( msg.content ){
         _textView.text = msg.content;

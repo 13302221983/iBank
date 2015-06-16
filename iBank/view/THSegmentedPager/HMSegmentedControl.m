@@ -9,6 +9,7 @@
 #import "HMSegmentedControl.h"
 #import <QuartzCore/QuartzCore.h>
 #import <math.h>
+#import "dataHelper.h"
 
 #define segmentImageTextPadding 7
 
@@ -654,6 +655,11 @@
 }
 
 - (void)scrollToSelectedSegmentIndex {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     CGRect rectForSelectedIndex;
     CGFloat selectedSegmentOffset = 0;
     if (self.segmentWidthStyle == HMSegmentedControlSegmentWidthStyleFixed) {

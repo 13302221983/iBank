@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [aliveHelper helper].inteval = 180;
+    [aliveHelper helper].inteval = 30;
     return YES;
 }
 

@@ -265,6 +265,11 @@
 
 - (void)onTouchAccount:(NSDictionary*)item
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( item ){
         detailVC *vc = [detailVC viewController];
         vc.bank = [item objectForKey:@"bank"];
@@ -281,6 +286,11 @@
 
 - (IBAction)onTouchYearMonth:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     yearMonthVC *vc = [[yearMonthVC alloc] init];
     vc.selectedMonth = _month.integerValue;
     vc.selectedYear = _year.integerValue;
@@ -312,6 +322,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( !_isRefreshing ){
         [_refreshView scrollViewDidScroll];
     }

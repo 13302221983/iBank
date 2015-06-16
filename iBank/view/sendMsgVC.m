@@ -134,6 +134,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UserObj *user = [[dataHelper helper].users objectAtIndex:indexPath.row];
     user.selected = !user.selected;
@@ -148,6 +153,11 @@
 
 - (IBAction)onTouchSend:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( _titleField.text.length == 0 ){
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入消息标题！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [av show];
@@ -217,15 +227,15 @@
 
 - (IBAction)onTouchBack:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     for( UserObj *user in [dataHelper helper].users ){
         user.selected = NO;
     }
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)onTouchCancel:(id)sender
-{
-    ;
 }
 
 - (void)onKeyboardFrameWillShowNotification:(NSNotification*)notification

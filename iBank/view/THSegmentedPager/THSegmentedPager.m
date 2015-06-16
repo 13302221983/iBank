@@ -12,6 +12,7 @@
 
 #import "THSegmentedPager.h"
 #import "THSegmentedPageViewControllerDelegate.h"
+#import "dataHelper.h"
 
 @interface THSegmentedPager ()
 @property (strong, nonatomic)UIPageViewController *pageViewController;
@@ -163,6 +164,11 @@
 
 - (void)pageControlValueChanged:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UIPageViewControllerNavigationDirection direction = [self.pageControl selectedSegmentIndex] > [self.pages indexOfObject:[self.pageViewController.viewControllers lastObject]] ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     [self.pageViewController setViewControllers:@[[self selectedController]]
                                       direction:direction

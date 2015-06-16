@@ -120,6 +120,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     _replyView.text = @"";
     MsgObj *msg = [_msgs objectAtIndex:indexPath.row];
     _selectedMsg = msg;
@@ -133,11 +138,21 @@
 
 - (IBAction)onTouchBack:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)onTouchReply:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     [_replyView resignFirstResponder];
     if( _replyView.text.length == 0 ){
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入消息内容！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];

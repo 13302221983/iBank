@@ -463,6 +463,11 @@
 
 - (void)onTouchAccount:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UIButton *button = (UIButton*)sender;
     NSDictionary *info = [_favoriteAccounts objectAtIndex:button.tag];
     detailVC *vc = [detailVC viewController];
@@ -476,19 +481,14 @@
 
 - (IBAction)onTouchSystemMsgButton:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( [dataHelper helper].qrySystemMsgListSrv.msgs.count == 0 ){
         return;
     }
-    /*
-    UIButton *button = (UIButton*)sender;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    msgVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"msgVC"];
-    vc.msgs = _qrySystemMsgListSrv.msgs;
-    UIPopoverController *pop = [[UIPopoverController alloc] initWithContentViewController:vc];
-    pop.popoverContentSize = CGSizeMake(600, 600);
-    CGRect frame = CGRectMake((self.view.frame.size.width-pop.popoverContentSize.width)/2, (self.view.frame.size.height-pop.popoverContentSize.height)/2, pop.popoverContentSize.width, 1);
-    [pop presentPopoverFromRect:[self.view convertRect:button.bounds fromView:button] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    */
     msgListVC *vc = [msgListVC viewController];
     vc.msgs = _qrySystemMsgListSrv.msgs;
     vc.forSystem = YES;
@@ -497,12 +497,22 @@
 
 - (IBAction)onTouchSendMsg:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     sendMsgVC *vc = [sendMsgVC viewController];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)onTouchReadMsg:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( _qryUserMsgListSrv.msgs.count == 0 )
     {
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"暂时无用户消息！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -573,6 +583,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( scrollView == _leftTableView ){
         if( !_balanceIsRefreshing ){
             [_balanceRefreshingView scrollViewDidScroll];

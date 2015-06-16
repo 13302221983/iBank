@@ -125,6 +125,7 @@
             [[aliveHelper helper] startKeepAlive];
             NSString *account = weakSelf.loginView.accountTextField.text;
             [dataHelper helper].loginAccount = account;
+            [dataHelper helper].sessionTimeout = NO;
             if( [dataHelper helper].autoSaveAccount ){
                 [dataHelper helper].savedAccount = account;
                 [[dataHelper helper] saveSettingToFile];

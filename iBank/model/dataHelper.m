@@ -292,4 +292,17 @@
     [_setting writeToFile:_settingFilePath atomically:YES];
 }
 
+- (BOOL)checkSessionTimeout
+{
+    if( _sessionTimeout && _sessionid.length > 0 ){
+        [[dataHelper helper].loginViewController prepareLoginAgain];
+        [[dataHelper helper].loginViewController.navigationController popToRootViewControllerAnimated:YES];
+        return NO;
+    }
+    else{
+        [dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
+        return YES;
+    }
+}
+
 @end

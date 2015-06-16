@@ -185,6 +185,11 @@
 
 - (void)onTouchTest:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     NSString *server = _serverTextField.text;
     if( server.length == 0 ){
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入服务器地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -228,6 +233,11 @@
 
 - (void)onTouchSave:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     NSString *server = _serverTextField.text;
     if( server.length == 0 ){
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入服务器地址！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -278,6 +288,11 @@
 
 - (void)onTouchSaveAccountButton:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     _autoSaveAccount = button.selected;
@@ -285,6 +300,11 @@
 
 - (void)onTouchAutoLogoutButton:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     _autoTimeout = button.selected;
@@ -299,6 +319,11 @@
 
 - (void)onTouchSSLButton:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
     _useSSL = button.selected;
@@ -312,6 +337,11 @@
 
 - (void)onSliderValueChange:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     UISlider *slider = (UISlider*)sender;
     _timeoutInterval = slider.value;
     [self updatTimeoutIntervalLabel];

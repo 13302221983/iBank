@@ -59,8 +59,9 @@
                 // -1001:参数无效
                 // -1201:用户会话不存在
                 // -1202:用户会话过期
-                ;
+                [dataHelper helper].sessionTimeout = YES;
             }
+            [dataHelper helper].sessionTimeout = YES;
             weakSelf.returned = YES;
         };
     }
@@ -88,7 +89,7 @@
 
 - (void)onTimer:(NSTimer*)timer
 {
-    NSLog(@"%s", __func__);
+    if( [dataHelper helper].sessionTimeout ) return;
     if( !_returned ) return;
     [_keepAliveSrv request];
 }

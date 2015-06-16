@@ -425,6 +425,11 @@
 
 - (void)onTouchAccount:(bankAccountObj*)account
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( account ){
         detailVC *vc = [detailVC viewController];
         vc.accountId = account.accountId;
@@ -441,6 +446,11 @@
 
 - (IBAction)onTouchYearMonth:(id)sender
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     yearMonthVC *vc = [[yearMonthVC alloc] init];
     vc.selectedMonth = _month.integerValue;
     vc.selectedYear = _year.integerValue;
@@ -472,6 +482,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    
     if( !_isRefreshing ){
         [_refreshView scrollViewDidScroll];
     }

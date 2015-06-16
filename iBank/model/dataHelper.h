@@ -70,6 +70,8 @@
 
 @property NSString *sessionid;
 
+@property BOOL sessionTimeout;
+
 @property NSString *dev;
 
 @property NSString *ip;
@@ -119,5 +121,7 @@
 - (void)clearSavedAccount;
 
 - (void)saveSettingToFile;
+
+- (BOOL)checkSessionTimeout;
 
 @end

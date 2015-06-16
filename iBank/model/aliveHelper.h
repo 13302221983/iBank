@@ -20,4 +20,8 @@
 
 - (void)fire;
 
+- (void)startTimoutChecking;
+
+- (void)stopTimoutChecking;
+
 @end

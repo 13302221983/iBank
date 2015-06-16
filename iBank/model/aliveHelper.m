@@ -12,7 +12,8 @@
 
 @interface aliveHelper ()
 {
-    NSTimer *_timer;
+    NSTimer *_keepAliveTimer;
+    NSTimer *_timeoutCheckingTimer;
     BOOL _returned;
     keepAliveService *_keepAliveSrv;
 }
@@ -74,25 +75,51 @@
     if( ![dataHelper helper].sessionid ){
         return;
     }
-    _timer = [NSTimer scheduledTimerWithTimeInterval:self.inteval target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+    _keepAliveTimer = [NSTimer scheduledTimerWithTimeInterval:self.inteval target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)stopKeepAlive
 {
-    [_timer invalidate];
+    [_keepAliveTimer invalidate];
 }
 
 - (void)fire
 {
-    if( _timer ) [_timer fire];
+    if( _timeoutCheckingTimer ) [_timeoutCheckingTimer fire];
+    if( _keepAliveTimer ) [_keepAliveTimer fire];
 }
 
 - (void)onTimer:(NSTimer*)timer
 {
     if( [dataHelper helper].sessionTimeout ) return;
     if( !_returned ) return;
-    [_keepAliveSrv request];
+    if( timer == _keepAliveTimer )
+    {
+        [_keepAliveSrv request];
+    }
+    else if( timer == _timeoutCheckingTimer ){
+        NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
+        if( timestamp - [dataHelper helper].lastTouchTimestamp > [dataHelper helper].timeoutInterval * 60 ){
+            [dataHelper helper].sessionTimeout = YES;
+        }
+        if( ![[dataHelper helper] checkSessionTimeout] )
+        {
+            [self stopTimoutChecking];
+        }
+    }
 }
 
+- (void)startTimoutChecking
+{
+    if( ![dataHelper helper].sessionid ){
+        return;
+    }
+    _timeoutCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+}
+
+- (void)stopTimoutChecking
+{
+    [_timeoutCheckingTimer invalidate];
+}
 
 @end

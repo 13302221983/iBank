@@ -547,7 +547,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     userInfoVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"userInfo"];
     _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
-    _pop.popoverContentSize = CGSizeMake(500, 500);
+    _pop.popoverContentSize = CGSizeMake(600, 497);
     [_pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
 }
 

@@ -110,6 +110,11 @@
 		26AC06EB1AF9CC3300B5A3F0 /* TextFieldEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AC06EA1AF9CC3300B5A3F0 /* TextFieldEx.m */; };
 		26C76D001B1FEED400B8592D /* news.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76CFF1B1FEED400B8592D /* news.png */; };
 		26C76D031B2D0B1600B8592D /* bankWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C76D021B2D0B1600B8592D /* bankWindow.m */; };
+		26C76D121B312F9900B8592D /* userInfo_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D0F1B312F9900B8592D /* userInfo_Background.png */; };
+		26C76D131B312F9900B8592D /* userInfo_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D101B312F9900B8592D /* userInfo_cancel.png */; };
+		26C76D141B312F9900B8592D /* userInfo_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D111B312F9900B8592D /* userInfo_save.png */; };
+		26C76D161B31336F00B8592D /* userInfo_textBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D151B31336F00B8592D /* userInfo_textBackground.png */; };
+		26C76D181B3135DA00B8592D /* userInfo_upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D171B3135DA00B8592D /* userInfo_upload.png */; };
 		26C77C211B018ABD0049B636 /* bankCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26C77C201B018ABD0049B636 /* bankCells.xib */; };
 		26D53EA81AE8A19500A1A33D /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */; };
 		26D53EE21AEB491A00A1A33D /* 刷新认证码-标准状态.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D53EAA1AEB491A00A1A33D /* 刷新认证码-标准状态.png */; };
@@ -332,6 +337,11 @@
 		26C76D011B2D0B1600B8592D /* bankWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bankWindow.h; sourceTree = "<group>"; };
 		26C76D021B2D0B1600B8592D /* bankWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bankWindow.m; sourceTree = "<group>"; };
 		26C76D0C1B2FD95900B8592D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		26C76D0F1B312F9900B8592D /* userInfo_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_Background.png; sourceTree = "<group>"; };
+		26C76D101B312F9900B8592D /* userInfo_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_cancel.png; sourceTree = "<group>"; };
+		26C76D111B312F9900B8592D /* userInfo_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_save.png; sourceTree = "<group>"; };
+		26C76D151B31336F00B8592D /* userInfo_textBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_textBackground.png; sourceTree = "<group>"; };
+		26C76D171B3135DA00B8592D /* userInfo_upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_upload.png; sourceTree = "<group>"; };
 		26C77C201B018ABD0049B636 /* bankCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bankCells.xib; sourceTree = "<group>"; };
 		26D53EA61AE8A19500A1A33D /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -521,6 +531,7 @@
 		2664B2391AE2B2C200FA8054 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				26C76D0E1B312F9900B8592D /* userInfo */,
 				2627C3051B00008700969720 /* Icon-29.png */,
 				2627C3061B00008700969720 /* Icon-29@2x.png */,
 				2627C3071B00008700969720 /* Icon-40.png */,
@@ -660,6 +671,18 @@
 				2678F2491AED50E1001A0596 /* msyh.ttf */,
 			);
 			path = font;
+			sourceTree = "<group>";
+		};
+		26C76D0E1B312F9900B8592D /* userInfo */ = {
+			isa = PBXGroup;
+			children = (
+				26C76D171B3135DA00B8592D /* userInfo_upload.png */,
+				26C76D151B31336F00B8592D /* userInfo_textBackground.png */,
+				26C76D0F1B312F9900B8592D /* userInfo_Background.png */,
+				26C76D101B312F9900B8592D /* userInfo_cancel.png */,
+				26C76D111B312F9900B8592D /* userInfo_save.png */,
+			);
+			path = userInfo;
 			sourceTree = "<group>";
 		};
 		26D53EA91AEB491A00A1A33D /* 登录 */ = {
@@ -901,6 +924,7 @@
 				26A2333B1AFCADA6000ABDB3 /* close@2x.png in Resources */,
 				26D53EFD1AEB491A00A1A33D /* LOGO.png in Resources */,
 				26D53EF71AEB491A00A1A33D /* 背景03.png in Resources */,
+				26C76D131B312F9900B8592D /* userInfo_cancel.png in Resources */,
 				269771011B09BFF3003ADD27 /* 默认头像.png in Resources */,
 				26D53EE81AEB491A00A1A33D /* 登录框.png in Resources */,
 				269771071B09BFF3003ADD27 /* 消息提醒.png in Resources */,
@@ -909,6 +933,7 @@
 				26D53EEA1AEB491A00A1A33D /* 认证码背景.png in Resources */,
 				26D53F0E1AEB491A00A1A33D /* 赞.png in Resources */,
 				26D53EF31AEB491A00A1A33D /* 动态-标准状态.png in Resources */,
+				26C76D161B31336F00B8592D /* userInfo_textBackground.png in Resources */,
 				26D53EF51AEB491A00A1A33D /* 背景01.png in Resources */,
 				26D53F0F1AEB491A00A1A33D /* 顶部-背景.png in Resources */,
 				26904EDC1B08F66900487C43 /* userCell.xib in Resources */,
@@ -962,6 +987,8 @@
 				266C86671B0EEF5100C80954 /* 返回-标准状态.png in Resources */,
 				2678F2471AED4EB3001A0596 /* szLogo.png in Resources */,
 				26D53EF61AEB491A00A1A33D /* 背景02.png in Resources */,
+				26C76D121B312F9900B8592D /* userInfo_Background.png in Resources */,
+				26C76D141B312F9900B8592D /* userInfo_save.png in Resources */,
 				2697710B1B09BFF3003ADD27 /* 注销-选中状态.png in Resources */,
 				26D53EE51AEB491A00A1A33D /* 帮助按钮-选中状态.png in Resources */,
 				266C86681B0EEF5100C80954 /* 返回-选中状态.png in Resources */,
@@ -973,6 +1000,7 @@
 				26D53EEE1AEB491A00A1A33D /* 输入框02.png in Resources */,
 				26D53F0A1AEB491A00A1A33D /* 01.png in Resources */,
 				269771091B09BFF3003ADD27 /* 写消息-选中状态.png in Resources */,
+				26C76D181B3135DA00B8592D /* userInfo_upload.png in Resources */,
 				26D53F0B1AEB491A00A1A33D /* 02.png in Resources */,
 				26D53F041AEB491A00A1A33D /* 灰色-选中.png in Resources */,
 				26D53F011AEB491A00A1A33D /* 未选中.png in Resources */,

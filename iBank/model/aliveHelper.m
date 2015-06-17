@@ -62,7 +62,7 @@
                 // -1202:用户会话过期
                 [dataHelper helper].sessionTimeout = YES;
             }
-            [dataHelper helper].sessionTimeout = YES;
+//            [dataHelper helper].sessionTimeout = YES;
             weakSelf.returned = YES;
         };
     }

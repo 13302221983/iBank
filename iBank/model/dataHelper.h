@@ -64,6 +64,12 @@
 
 @property NSString *loginAccount;
 
+@property NSString *nickName;
+
+@property NSString *password;
+
+@property UIImage *portraitImage;
+
 @property (nonatomic) NSString *host;
 
 @property NSString *site;

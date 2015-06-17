@@ -122,15 +122,19 @@
         weakSelf.loginView.loginButton.enabled = YES;
         if( code == 1 ){
             [dataHelper helper].sessionid = data;
-            [[aliveHelper helper] startKeepAlive];
             NSString *account = weakSelf.loginView.accountTextField.text;
             [dataHelper helper].loginAccount = account;
+            [dataHelper helper].password = weakSelf.loginView.passwordTextField.text;
             [dataHelper helper].sessionTimeout = NO;
+            [dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
             if( [dataHelper helper].autoSaveAccount ){
                 [dataHelper helper].savedAccount = account;
                 [[dataHelper helper] saveSettingToFile];
             }
             [weakSelf.navigationController pushViewController:[mainVC viewController] animated:YES];
+            [[aliveHelper helper] startKeepAlive];
+            [[aliveHelper helper] startKeepAlive];
+            [[aliveHelper helper] fire];
         }
         else if( data.length > 0 ){
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:data delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
@@ -298,6 +302,7 @@
     _loginView.passwordTextField.text = @"";
     _loginView.codeTextField.text = @"";
     [[aliveHelper helper] stopKeepAlive];
+    [[aliveHelper helper] stopTimoutChecking];
     [dataHelper helper].sessionid = nil;
     [self requestVerifyCodeImage];
 }

@@ -22,6 +22,7 @@
 #import "msgListVC.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SRRefreshView.h"
+#import "userInfoVC.h"
 
 @implementation homeItem
 @end
@@ -120,6 +121,7 @@
     qryMsgListService *_qrySystemMsgListSrv;
     NSMutableArray *_orgs;
     NSArray *_favoriteAccounts;
+    UIPopoverController *_pop;
 }
 
 @property NSMutableArray *orgs;
@@ -240,6 +242,7 @@
                 UIImage *image = [UIImage imageWithData:imageData];
                 if( image ){
                     weakSelf.portraitView.image = image;
+                    [dataHelper helper].portraitImage = image;
                 }
             }
         }
@@ -529,6 +532,23 @@
 {
     _logoutAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定注销当前用户？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     [_logoutAlert show];
+}
+
+- (IBAction)onShowUserInfo:(id)sender
+{
+    if( ![[dataHelper helper] checkSessionTimeout] )
+    {
+        return;
+    }
+    if( [_pop isPopoverVisible] ){
+        [_pop dismissPopoverAnimated:NO];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    userInfoVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"userInfo"];
+    _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    _pop.popoverContentSize = CGSizeMake(500, 500);
+    [_pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
 }
 
 #pragma mark- UIAlertViewDelegate

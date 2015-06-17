@@ -37,23 +37,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
-    if( ![dataHelper helper].sessionid ){
-        [dataHelper helper].lastTouchTimestamp = timestamp;
-    }
-    else{
+    if( [[dataHelper helper] checkSessionTimeout] ){
+        [dataHelper helper].lastTouchTimestamp = [[NSDate date] timeIntervalSince1970];
         [[aliveHelper helper] fire];
-        int interval = [dataHelper helper].timeoutInterval * 60;
-        if( [dataHelper helper].lastTouchTimestamp > 0 && timestamp - [dataHelper helper].lastTouchTimestamp > interval ){
-            if( [dataHelper helper].loginViewController ){
-                [[dataHelper helper].loginViewController prepareLoginAgain];
-            }
-            UINavigationController *nav = (UINavigationController*) self.window.rootViewController;
-            [nav popToRootViewControllerAnimated:YES];
-        }
-        else{
-            [dataHelper helper].lastTouchTimestamp = timestamp;
-        }
     }
 }
 
@@ -65,6 +51,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+/*
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@".....1");
@@ -96,4 +83,5 @@
     NSLog(@".....5");
     return [super targetForAction:action withSender:sender];
 }
+*/
 @end

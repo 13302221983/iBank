@@ -67,6 +67,7 @@
 		2664B2541AE3301600FA8054 /* companyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2664B2531AE3301600FA8054 /* companyVC.m */; };
 		2664B2571AE3302D00FA8054 /* bankVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2664B2561AE3302D00FA8054 /* bankVC.m */; };
 		2664B25A1AE3304400FA8054 /* settingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2664B2591AE3304400FA8054 /* settingVC.m */; };
+		266A8A4C1B2FBA100004F41E /* userInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 266A8A4B1B2FBA100004F41E /* userInfoVC.m */; };
 		266C86671B0EEF5100C80954 /* 返回-标准状态.png in Resources */ = {isa = PBXBuildFile; fileRef = 266C86651B0EEF5100C80954 /* 返回-标准状态.png */; };
 		266C86681B0EEF5100C80954 /* 返回-选中状态.png in Resources */ = {isa = PBXBuildFile; fileRef = 266C86661B0EEF5100C80954 /* 返回-选中状态.png */; };
 		267800FC1AEF57FB008DE5E8 /* cells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 267800FB1AEF57FB008DE5E8 /* cells.xib */; };
@@ -276,6 +277,8 @@
 		2664B2561AE3302D00FA8054 /* bankVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bankVC.m; sourceTree = "<group>"; };
 		2664B2581AE3304400FA8054 /* settingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingVC.h; sourceTree = "<group>"; };
 		2664B2591AE3304400FA8054 /* settingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingVC.m; sourceTree = "<group>"; };
+		266A8A4A1B2FBA100004F41E /* userInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userInfoVC.h; sourceTree = "<group>"; };
+		266A8A4B1B2FBA100004F41E /* userInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userInfoVC.m; sourceTree = "<group>"; };
 		266C86651B0EEF5100C80954 /* 返回-标准状态.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "返回-标准状态.png"; sourceTree = "<group>"; };
 		266C86661B0EEF5100C80954 /* 返回-选中状态.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "返回-选中状态.png"; sourceTree = "<group>"; };
 		267800FB1AEF57FB008DE5E8 /* cells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cells.xib; sourceTree = "<group>"; };
@@ -634,6 +637,8 @@
 				26904EDE1B09391C00487C43 /* msgListVC.m */,
 				26C76D011B2D0B1600B8592D /* bankWindow.h */,
 				26C76D021B2D0B1600B8592D /* bankWindow.m */,
+				266A8A4A1B2FBA100004F41E /* userInfoVC.h */,
+				266A8A4B1B2FBA100004F41E /* userInfoVC.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1034,6 +1039,7 @@
 				26904ECB1B07F55B00487C43 /* MsgObj.m in Sources */,
 				2612D5D11AF4824D002B45D9 /* qryMyFavoriteService.m in Sources */,
 				2612D5C81AF47DF6002B45D9 /* qryOrgBankBalanceService.m in Sources */,
+				266A8A4C1B2FBA100004F41E /* userInfoVC.m in Sources */,
 				2612D5DA1AF73F77002B45D9 /* detailVC.m in Sources */,
 				26D53EA81AE8A19500A1A33D /* UICKeyChainStore.m in Sources */,
 				26904EC81B07F28B00487C43 /* msgVC.m in Sources */,

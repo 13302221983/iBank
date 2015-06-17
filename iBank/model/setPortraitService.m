@@ -45,7 +45,57 @@
  */
 
 #import "setPortraitService.h"
+#import "dataHelper.h"
+#import "Utility.h"
 
 @implementation setPortraitService
+
+
+- (id)init
+{
+    self = [super init];
+    if( self ){
+        self.soapAction = @"urn:UserOptControllerwsdl/setAvatar";
+        self.package = @"ibankbiz/user-opt";
+    }
+    return self;
+}
+
+
+- (void)request
+{
+    NSData *data = UIImageJPEGRepresentation(_portrait, 1.0f);
+    NSString *b64Encode = [data base64Encoding];
+    NSMutableString *body = [[NSMutableString alloc] initWithCapacity:0];
+    [body appendString:@"<tns:setAvatar>\n"];
+    [body appendFormat:@"<sid xsi:type=\"xsd:string\">%@</sid>\n",[dataHelper helper].sessionid];
+    [body appendFormat:@"<new_data xsi:type=\"xsd:string\">%@</new_data>\n", b64Encode];
+    [body appendString:@"</tns:setAvatar>"];
+    self.soapBody = body;
+    [super request];
+}
+
+
+- (void)parseResult:(NSString *)result
+{
+    NSDictionary *dict = [Utility dictionaryWithJsonString:result];
+    NSNumber *code;
+    NSString *data;
+    if( dict ){
+        code = [dict objectForKey:@"result"];
+        data = [dict objectForKey:@"data"];
+    }
+    if( self.setPortraitBlock ){
+        self.setPortraitBlock( code.intValue, data );
+    }
+}
+
+- (void)onError:(NSString *)error
+{
+    if( self.setPortraitBlock ){
+        self.setPortraitBlock( 99, @"无法连接服务器！" );
+    }
+}
+
 
 @end

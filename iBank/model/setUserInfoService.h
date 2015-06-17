@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "wbConn.h"
 
-@interface setUserInfoService : NSObject
+typedef void(^SET_USER_INFO_BLOCK) (int code, id data);
+
+@interface setUserInfoService : wbConn
+
+@property NSString *nickName;
+
+@property NSString *password;
+
+@property (strong) SET_USER_INFO_BLOCK setUserInfoBlock;
 
 @end

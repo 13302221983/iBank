@@ -9,11 +9,16 @@
 #import "userInfoVC.h"
 #import "dataHelper.h"
 #import "indicatorView.h"
+#import "setUserInfoService.h"
+#import "setPortraitService.h"
 
 @interface userInfoVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIImagePickerController *_imagePicker;
     UIPopoverController *_popController;
+    setUserInfoService *_setUserInfoService;
+    setPortraitService *_setPortraitService;
+    UIImage *_portraitImage;
 }
 
 @property IBOutlet UITextField *account;
@@ -38,6 +43,41 @@
     if( [dataHelper helper].portraitImage ){
         [_portraitButton setImage:[dataHelper helper].portraitImage forState:UIControlStateNormal];
     }
+    
+    _setUserInfoService = [[setUserInfoService alloc] init];
+    _setUserInfoService.setUserInfoBlock = ^(int code, id data){
+        [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
+        if( code == 1 ){
+            // 成功
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [av show];
+        }
+        else{
+            if( [data isKindOfClass:[NSString class]] ){
+                NSString *message = (NSString*)data;
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [av show];
+            }
+        }
+    };
+    
+    _setPortraitService = [[setPortraitService alloc] init];
+    _setPortraitService.setPortraitBlock = ^(int code, id data){
+        [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
+        if( code == 1 ){
+            // 成功
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"上传成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [av show];
+        }
+        else{
+            if( [data isKindOfClass:[NSString class]] ){
+                NSString *message = (NSString*)data;
+                UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [av show];
+            }
+        }
+    };
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,6 +101,10 @@
     {
         return;
     }
+    _setUserInfoService.nickName = _nickName.text;
+    _setUserInfoService.password = _password.text;
+    [indicatorView showOnlyIndicatorAtView:[UIApplication sharedApplication].keyWindow];
+    [_setUserInfoService request];
 }
 
 - (IBAction)onTouchUpload:(id)sender
@@ -69,6 +113,9 @@
     {
         return;
     }
+    _setPortraitService.portrait = _portraitImage;
+    [indicatorView showOnlyIndicatorAtView:[UIApplication sharedApplication].keyWindow];
+    [_setPortraitService request];
 }
 
 - (IBAction)onTouchCancel:(id)sender
@@ -108,6 +155,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    _portraitImage = image;
     [_portraitButton setImage:image forState:UIControlStateNormal];
     [_imagePicker dismissViewControllerAnimated:YES completion:nil];
 }

@@ -8,6 +8,12 @@
 
 #import "wbConn.h"
 
+typedef void(^SET_PORTRAIT_BLOCK) (int code, id data);
+
 @interface setPortraitService : wbConn
+
+@property UIImage *portrait;
+
+@property (strong) SET_PORTRAIT_BLOCK setPortraitBlock;
 
 @end

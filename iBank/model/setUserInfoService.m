@@ -59,8 +59,55 @@
  */
 
 #import "setUserInfoService.h"
+#import "dataHelper.h"
+#import "Utility.h"
 
 
 @implementation setUserInfoService
+
+- (id)init
+{
+    self = [super init];
+    if( self ){
+        self.soapAction = @"urn:UserOptControllerwsdl/setUserInfo";
+        self.package = @"ibankbiz/user-opt";
+    }
+    return self;
+}
+
+
+- (void)request
+{
+    NSString *data = [NSString stringWithFormat:@"{\"name\":\"%@\",\"pwd\":\"%@\"}", _nickName, _password];
+    NSMutableString *body = [[NSMutableString alloc] initWithCapacity:0];
+    [body appendString:@"<tns:setUserInfot>\n"];
+    [body appendFormat:@"<sid xsi:type=\"xsd:string\">%@</sid>\n",[dataHelper helper].sessionid];
+    [body appendFormat:@"<new_data xsi:type=\"xsd:string\">%@</new_data>\n", data];
+    [body appendString:@"</tns:setUserInfo>"];
+    self.soapBody = body;
+    [super request];
+}
+
+
+- (void)parseResult:(NSString *)result
+{
+    NSDictionary *dict = [Utility dictionaryWithJsonString:result];
+    NSNumber *code;
+    NSString *data;
+    if( dict ){
+        code = [dict objectForKey:@"result"];
+        data = [dict objectForKey:@"data"];
+    }
+    if( self.setUserInfoBlock ){
+        self.setUserInfoBlock( code.intValue, data );
+    }
+}
+
+- (void)onError:(NSString *)error
+{
+    if( self.setUserInfoBlock ){
+        self.setUserInfoBlock( 99, @"无法连接服务器！" );
+    }
+}
 
 @end

@@ -49,6 +49,7 @@
             <string>MicrosoftYaHei</string>
             <string>MicrosoftYaHei</string>
             <string>MicrosoftYaHei</string>
+            <string>MicrosoftYaHei</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -112,7 +113,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fkt-BW-9kl">
                                 <rect key="frame" x="124" y="247" width="415" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yR4-lU-kDN">
                                 <rect key="frame" x="448" y="330" width="106" height="50"/>
@@ -128,21 +129,12 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isD-Iy-5mQ">
                                 <rect key="frame" x="38" y="417" width="247" height="52"/>
                                 <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="18"/>
-                                <state key="normal" title="取消" backgroundImage="userInfo_cancel.png">
+                                <state key="normal" title="返回" backgroundImage="userInfo_cancel.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onTouchCancel:" destination="WhN-8z-eHR" eventType="touchUpInside" id="AP6-BD-TBb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kj5-4P-q4g">
-                                <rect key="frame" x="112" y="315" width="80" height="80"/>
-                                <state key="normal" image="default.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTouchPortrait:" destination="WhN-8z-eHR" eventType="touchUpInside" id="cGP-D1-JRa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMt-Qo-e7j">
@@ -156,6 +148,21 @@
                                     <action selector="onTouchSave:" destination="WhN-8z-eHR" eventType="touchUpInside" id="mdh-k1-lf9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kj5-4P-q4g">
+                                <rect key="frame" x="112" y="315" width="65" height="80"/>
+                                <state key="normal" image="default.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTouchPortrait:" destination="WhN-8z-eHR" eventType="touchUpInside" id="cGP-D1-JRa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="（点击头像可以更改头像）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmQ-5K-mou">
+                                <rect key="frame" x="185" y="359" width="209" height="21"/>
+                                <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -330,21 +337,23 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default.png" translatesAutoresizingMaskIntoConstraints="NO" id="yGh-dO-jYL">
-                                        <rect key="frame" x="31" y="23" width="60" height="85"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="您好！" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihI-bh-Emp">
                                         <rect key="frame" x="115" y="31" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="25"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="管理员" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n01-w6-wOy">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fz5-Zo-WKw">
                                         <rect key="frame" x="115" y="71" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="25"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <state key="normal" title="管理员">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onShowUserInfo:" destination="HB9-KG-zgv" eventType="touchUpInside" id="NGa-aT-1kF"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="日期.png" translatesAutoresizingMaskIntoConstraints="NO" id="pYe-wZ-QZL">
                                         <rect key="frame" x="27" y="135" width="27" height="27"/>
                                     </imageView>
@@ -381,9 +390,9 @@
                                             <action selector="onTouchReadMsg:" destination="HB9-KG-zgv" eventType="touchUpInside" id="dde-rH-pgI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2r-RI-xnk">
-                                        <rect key="frame" x="31" y="23" width="65" height="85"/>
-                                        <state key="normal">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2r-RI-xnk" userLabel="portraitButton">
+                                        <rect key="frame" x="31" y="23" width="60" height="85"/>
+                                        <state key="normal" image="default.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -496,10 +505,11 @@
                         <outlet property="_leftTableView" destination="Shk-ji-FF0" id="Rzk-VL-cIm"/>
                         <outlet property="_rightTableView" destination="okx-md-pNM" id="9d2-pl-DMb"/>
                         <outlet property="dayInfoLabel" destination="8oX-uW-snC" id="Ai7-xM-pPc"/>
+                        <outlet property="nickNameButton" destination="fz5-Zo-WKw" id="U0X-sK-2Cn"/>
+                        <outlet property="portraitButton" destination="Q2r-RI-xnk" id="2h0-6s-0nS"/>
                         <outlet property="systemMsgButton" destination="AQH-JJ-xC8" id="B1h-lK-SFA"/>
                         <outlet property="userInfoLabel" destination="ihI-bh-Emp" id="Aw5-Ve-PQ8"/>
                         <outlet property="userInfoView" destination="q5a-1X-FKx" id="Ejr-6V-6KF"/>
-                        <outlet property="userName" destination="n01-w6-wOy" id="c07-BD-e9x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ru-5e-j9e" userLabel="First Responder" sceneMemberID="firstResponder"/>

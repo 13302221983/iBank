@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^USER_INFO_BLOCK) (UIImage *portrait, NSString *nickName);
+
 @interface userInfoVC : UIViewController
+
+@property (strong) USER_INFO_BLOCK block;
 
 @end

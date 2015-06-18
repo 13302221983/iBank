@@ -69,7 +69,7 @@
     NSMutableString *body = [[NSMutableString alloc] initWithCapacity:0];
     [body appendString:@"<tns:setAvatar>\n"];
     [body appendFormat:@"<sid xsi:type=\"xsd:string\">%@</sid>\n",[dataHelper helper].sessionid];
-    [body appendFormat:@"<new_data xsi:type=\"xsd:string\">%@</new_data>\n", b64Encode];
+    [body appendFormat:@"<new_data xsi:type=\"xsd:string\">\"%@\"</new_data>\n", b64Encode];
     [body appendString:@"</tns:setAvatar>"];
     self.soapBody = body;
     [super request];

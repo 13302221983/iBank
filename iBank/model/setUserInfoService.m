@@ -80,7 +80,7 @@
 {
     NSString *data = [NSString stringWithFormat:@"{\"name\":\"%@\",\"pwd\":\"%@\"}", _nickName, _password];
     NSMutableString *body = [[NSMutableString alloc] initWithCapacity:0];
-    [body appendString:@"<tns:setUserInfot>\n"];
+    [body appendString:@"<tns:setUserInfo>\n"];
     [body appendFormat:@"<sid xsi:type=\"xsd:string\">%@</sid>\n",[dataHelper helper].sessionid];
     [body appendFormat:@"<new_data xsi:type=\"xsd:string\">%@</new_data>\n", data];
     [body appendString:@"</tns:setUserInfo>"];

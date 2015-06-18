@@ -29,6 +29,8 @@
 
 @property IBOutlet UIButton *portraitButton;
 
+@property UIImage *portraitImage;
+
 @end
 
 @implementation userInfoVC
@@ -44,13 +46,19 @@
         [_portraitButton setImage:[dataHelper helper].portraitImage forState:UIControlStateNormal];
     }
     
+    __weak userInfoVC *weakSelf = self;
     _setUserInfoService = [[setUserInfoService alloc] init];
     _setUserInfoService.setUserInfoBlock = ^(int code, id data){
         [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
         if( code == 1 ){
             // 成功
+            [dataHelper helper].nickName = weakSelf.nickName.text;
+            [dataHelper helper].password = weakSelf.password.text;
             UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保存成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [av show];
+            if( weakSelf.block ){
+                weakSelf.block( nil, weakSelf.nickName.text );
+            }
         }
         else{
             if( [data isKindOfClass:[NSString class]] ){
@@ -66,8 +74,12 @@
         [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
         if( code == 1 ){
             // 成功
+            [dataHelper helper].portraitImage = weakSelf.portraitImage;
             UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"上传成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [av show];
+            if( weakSelf.block ){
+                weakSelf.block( weakSelf.portraitImage, nil );
+            }
         }
         else{
             if( [data isKindOfClass:[NSString class]] ){
@@ -101,9 +113,35 @@
     {
         return;
     }
+    
+    if( _nickName.text.length == 0 ){
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入昵称！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+    
+    if( _nickName.text.length > 32 )
+    {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"昵称不能超过16个中文字符！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+    
+    if( _password.text.length == 0 ){
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入密码！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+    
+    if( _password.text.length > 16 ){
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码不能超过16个字符！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+    
     _setUserInfoService.nickName = _nickName.text;
     _setUserInfoService.password = _password.text;
-    [indicatorView showOnlyIndicatorAtView:[UIApplication sharedApplication].keyWindow];
+    [indicatorView showMessage:@"正在保存..." atView:[UIApplication sharedApplication].keyWindow];
     [_setUserInfoService request];
 }
 
@@ -114,7 +152,7 @@
         return;
     }
     _setPortraitService.portrait = _portraitImage;
-    [indicatorView showOnlyIndicatorAtView:[UIApplication sharedApplication].keyWindow];
+    [indicatorView showMessage:@"正在上传头像..." atView:[UIApplication sharedApplication].keyWindow];
     [_setPortraitService request];
 }
 
@@ -139,7 +177,7 @@
     
     _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
-    if( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] )
+    if( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]/* && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]*/ )
     {
         _popController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
         _popController.popoverContentSize = CGSizeMake(320, 320);
@@ -156,8 +194,18 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     _portraitImage = image;
+    CGRect portraitFrame = _portraitButton.frame;
+    CGFloat height = portraitFrame.size.height;
+    CGFloat width = (image.size.width / image.size.height) * height;
+    portraitFrame.size = CGSizeMake(width, height);
+    _portraitButton.frame = portraitFrame;
     [_portraitButton setImage:image forState:UIControlStateNormal];
-    [_imagePicker dismissViewControllerAnimated:YES completion:nil];
+    [_imagePicker dismissViewControllerAnimated:YES completion:^(void){
+        UIGraphicsBeginImageContext(portraitFrame.size);
+        [_portraitButton.layer renderInContext:UIGraphicsGetCurrentContext()];
+        _portraitImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated

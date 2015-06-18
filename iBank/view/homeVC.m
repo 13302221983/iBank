@@ -132,8 +132,8 @@
 @property IBOutlet UILabel *dayInfoLabel;
 @property IBOutlet UIView *userInfoView;
 @property IBOutlet UIButton *systemMsgButton;
-@property IBOutlet UIImageView *portraitView;
-@property IBOutlet UILabel *userName;
+@property IBOutlet UIButton *portraitButton;
+@property IBOutlet UIButton *nickNameButton;
 @property UIAlertView *logoutAlert;
 @property BOOL balanceIsRefreshing;
 @property BOOL favoritesIsRefreshing;
@@ -175,7 +175,7 @@
     [_rightTableView addSubview:_favoritesRefreshingView];
     
     [dataHelper helper].homeViewController = self;
-    _portraitView.layer.masksToBounds = YES;
+    _portraitButton.layer.masksToBounds = YES;
     _orgs = [[NSMutableArray alloc] initWithCapacity:0];
     __weak homeVC *weakSelf = self;
     _balanceSrv = [[qryOrgBankBalanceService alloc] init];
@@ -235,13 +235,19 @@
         if( code == 1 ){
             NSArray *arr = (NSArray*)data;
             NSDictionary *info = arr.firstObject;
-            weakSelf.userName.text = [info objectForKey:@"name"];
+            NSString *nickName = [info objectForKey:@"name"];
+            [dataHelper helper].nickName = nickName;
+            [weakSelf.nickNameButton setTitle:nickName forState:UIControlStateNormal];
+            CGSize size = [nickName sizeWithFont:weakSelf.nickNameButton.titleLabel.font constrainedToSize:weakSelf.nickNameButton.frame.size];
+            CGRect nickNameFrame = weakSelf.nickNameButton.frame;
+            nickNameFrame.size = CGSizeMake(size.width+10, size.height);
+            weakSelf.nickNameButton.frame = nickNameFrame;
             NSString *user_avatar = [info objectForKey:@"user_avatar"];
             if( user_avatar ){
                 NSData *imageData = [[NSData alloc] initWithBase64EncodedString:user_avatar options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 UIImage *image = [UIImage imageWithData:imageData];
                 if( image ){
-                    weakSelf.portraitView.image = image;
+                    [weakSelf.portraitButton setImage:image forState:UIControlStateNormal];
                     [dataHelper helper].portraitImage = image;
                 }
             }
@@ -546,6 +552,25 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     userInfoVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"userInfo"];
+    vc.block = ^(UIImage *portrait, NSString *nickName){
+        if( portrait ){
+            CGRect portraitFrame = _portraitButton.frame;
+            CGFloat height = portraitFrame.size.height;
+            CGFloat width = (portrait.size.width / portrait.size.height) * height;
+            portraitFrame.size = CGSizeMake(width, height);
+            _portraitButton.frame = portraitFrame;
+            [_portraitButton setImage:portrait forState:UIControlStateNormal];
+        }
+        
+        if( nickName ){
+            [_nickNameButton setTitle:nickName forState:UIControlStateNormal];
+            CGSize size = [nickName sizeWithFont:_nickNameButton.titleLabel.font constrainedToSize:_nickNameButton.frame.size];
+            CGRect nickNameFrame = _nickNameButton.frame;
+            nickNameFrame.size = CGSizeMake(size.width+10, size.height);
+            _nickNameButton.frame = nickNameFrame;
+        }
+        
+    };
     _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
     _pop.popoverContentSize = CGSizeMake(600, 497);
     [_pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];

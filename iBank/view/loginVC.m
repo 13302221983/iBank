@@ -304,6 +304,7 @@
     [[aliveHelper helper] stopKeepAlive];
     [[aliveHelper helper] stopTimoutChecking];
     [dataHelper helper].sessionid = nil;
+    [dataHelper helper].sessionTimeout = NO;
     [self requestVerifyCodeImage];
 }
 

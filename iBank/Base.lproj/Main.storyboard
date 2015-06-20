@@ -118,12 +118,12 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yR4-lU-kDN">
                                 <rect key="frame" x="448" y="330" width="106" height="50"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="上传" backgroundImage="userInfo_upload.png">
+                                <state key="normal" title="选择头像" backgroundImage="userInfo_upload.png">
                                     <color key="titleColor" red="0.33725490196078434" green="0.33725490196078434" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onTouchUpload:" destination="WhN-8z-eHR" eventType="touchUpInside" id="LjU-V2-CAK"/>
+                                    <action selector="onTouchPortrait:" destination="WhN-8z-eHR" eventType="touchUpInside" id="w58-mw-SON"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isD-Iy-5mQ">
@@ -148,16 +148,13 @@
                                     <action selector="onTouchSave:" destination="WhN-8z-eHR" eventType="touchUpInside" id="mdh-k1-lf9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kj5-4P-q4g">
+                            <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kj5-4P-q4g">
                                 <rect key="frame" x="112" y="315" width="65" height="80"/>
                                 <state key="normal" image="default.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="onTouchPortrait:" destination="WhN-8z-eHR" eventType="touchUpInside" id="cGP-D1-JRa"/>
-                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="（点击头像可以更改头像）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmQ-5K-mou">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="（点击头像可以更改头像）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmQ-5K-mou">
                                 <rect key="frame" x="185" y="359" width="209" height="21"/>
                                 <fontDescription key="fontDescription" name="MicrosoftYaHei" family="Microsoft YaHei" pointSize="15"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -165,6 +162,11 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="GmQ-5K-mou"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="497"/>
@@ -399,6 +401,13 @@
                                             <action selector="onShowUserInfo:" destination="HB9-KG-zgv" eventType="touchUpInside" id="ujx-zs-QlG"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLm-wA-fB2">
+                                        <rect key="frame" x="415" y="125" width="16" height="16"/>
+                                        <color key="backgroundColor" red="0.98431372549999996" green="0.47843137250000001" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -504,6 +513,7 @@
                     <connections>
                         <outlet property="_leftTableView" destination="Shk-ji-FF0" id="Rzk-VL-cIm"/>
                         <outlet property="_rightTableView" destination="okx-md-pNM" id="9d2-pl-DMb"/>
+                        <outlet property="badgeLabel" destination="NLm-wA-fB2" id="Foo-ze-uAy"/>
                         <outlet property="dayInfoLabel" destination="8oX-uW-snC" id="Ai7-xM-pPc"/>
                         <outlet property="nickNameButton" destination="fz5-Zo-WKw" id="U0X-sK-2Cn"/>
                         <outlet property="portraitButton" destination="Q2r-RI-xnk" id="2h0-6s-0nS"/>

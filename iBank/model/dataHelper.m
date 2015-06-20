@@ -295,12 +295,15 @@
 - (BOOL)checkSessionTimeout
 {
     if( _sessionTimeout && _sessionid.length > 0 ){
+        if( [[dataHelper helper].pop isPopoverVisible] ){
+            [[dataHelper helper].pop dismissPopoverAnimated:YES];
+        }
         [[dataHelper helper].loginViewController prepareLoginAgain];
         [[dataHelper helper].loginViewController.navigationController popToRootViewControllerAnimated:YES];
         return NO;
     }
     else{
-        [dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
+        //[dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
         return YES;
     }
 }

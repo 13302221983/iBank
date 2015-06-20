@@ -252,7 +252,7 @@
     cell.descLabel.text = [[item objectForKey:@"desc"] isKindOfClass:[NSString class]] ? [item objectForKey:@"desc"] : @"";
     cell.balanceLabel.text = [Utility moneyFormatString:balance.floatValue];
     NSNumber *ln = [item objectForKey:@"ln"];
-    cell.numLabel.text = [NSString stringWithFormat:@"%d", ln.intValue + 1 ];
+    cell.numLabel.text = [NSString stringWithFormat:@"%d", ln.intValue];
     return cell;
 }
 
@@ -275,9 +275,9 @@
         [self loadData];
     };
     vc.isPopOver = YES;
-    _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
-    _pop.popoverContentSize = CGSizeMake(320, 202);
-    [_pop presentPopoverFromRect:_chooseDateButton.frame inView:_topBarView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [dataHelper helper].pop.popoverContentSize = CGSizeMake(320, 202);
+    [[dataHelper helper].pop presentPopoverFromRect:_chooseDateButton.frame inView:_topBarView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (IBAction)onTouchNextPage:(id)sender

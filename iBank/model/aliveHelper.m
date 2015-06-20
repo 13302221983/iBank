@@ -42,17 +42,28 @@
         __weak aliveHelper *weakSelf = self;
         _keepAliveSrv = [[keepAliveService alloc] init];
         _keepAliveSrv.keepAliveBlock = ^(NSInteger code, NSString *data){
-            if( code == 1 && [data isKindOfClass:[NSString class]] ){
+            if( code == 1 ){
                 // 成功
-                NSString *countString = (NSString*)data;
-                NSArray *counts = [countString componentsSeparatedByString:@","];
-                NSString *systemMsgCount = counts.lastObject;
-                NSString *userMsgCount = counts.firstObject;
-                if( systemMsgCount.intValue > 0 ){
-                    [[dataHelper helper].qrySystemMsgListSrv request];
-                }
-                if( userMsgCount.intValue > 0 ){
-                    [[dataHelper helper].qryUserMsgListSrv request];
+                if( [data isKindOfClass:[NSString class]] )
+                {
+                    NSString *countString = (NSString*)data;
+                    NSArray *counts = [countString componentsSeparatedByString:@","];
+                    NSString *systemMsgCount = counts.lastObject;
+                    NSString *userMsgCount = counts.firstObject;
+                    if( systemMsgCount.intValue > 0 ){
+                        [[dataHelper helper].qrySystemMsgListSrv request];
+                    }
+                    if( userMsgCount.intValue > 0 ){
+                        if( userMsgCount.intValue > 99 ){
+                            userMsgCount = @"99+";
+                        }
+                        [dataHelper helper].badgeLabel.text = userMsgCount;
+                        [dataHelper helper].badgeLabel.hidden = NO;
+                        [[dataHelper helper].qryUserMsgListSrv request];
+                    }
+                    else{
+                        [dataHelper helper].badgeLabel.hidden = YES;
+                    }
                 }
             }
             else{
@@ -60,9 +71,8 @@
                 // -1001:参数无效
                 // -1201:用户会话不存在
                 // -1202:用户会话过期
-                [dataHelper helper].sessionTimeout = YES;
+                //[dataHelper helper].sessionTimeout = YES;
             }
-//            [dataHelper helper].sessionTimeout = YES;
             weakSelf.returned = YES;
         };
     }

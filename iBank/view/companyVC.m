@@ -302,9 +302,9 @@
         [self loadData];
     };
     vc.isPopOver = YES;
-    _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
-    _pop.popoverContentSize = CGSizeMake(320, 202);
-    [_pop presentPopoverFromRect:_chooseDateButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [dataHelper helper].pop.popoverContentSize = CGSizeMake(320, 202);
+    [[dataHelper helper].pop presentPopoverFromRect:_chooseDateButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 

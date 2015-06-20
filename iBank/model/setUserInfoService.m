@@ -78,7 +78,7 @@
 
 - (void)request
 {
-    NSString *data = [NSString stringWithFormat:@"{\"name\":\"%@\",\"pwd\":\"%@\"}", _nickName, _password];
+    NSString *data = [NSString stringWithFormat:@"{\"name\":\"%@\",\"pwd\":\"%@\"}", _nickName, [Utility md5String:[NSString stringWithFormat:@"%@%@", [dataHelper helper].loginAccount, _password]]];
     NSMutableString *body = [[NSMutableString alloc] initWithCapacity:0];
     [body appendString:@"<tns:setUserInfo>\n"];
     [body appendFormat:@"<sid xsi:type=\"xsd:string\">%@</sid>\n",[dataHelper helper].sessionid];

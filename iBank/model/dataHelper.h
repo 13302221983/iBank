@@ -64,11 +64,19 @@
 
 @property NSString *loginAccount;
 
+@property int loginUserId;
+
+@property NSString *loginUserNo;
+
+@property NSString *userName;
+
 @property NSString *nickName;
 
 @property NSString *password;
 
 @property UIImage *portraitImage;
+
+@property UILabel *badgeLabel;
 
 @property (nonatomic) NSString *host;
 
@@ -117,6 +125,8 @@
 @property (weak)loginVC *loginViewController;
 
 @property (weak) homeVC *homeViewController;
+
+@property UIPopoverController *pop;
 
 @property qryMsgListService *qrySystemMsgListSrv;
 

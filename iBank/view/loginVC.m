@@ -122,7 +122,7 @@
         weakSelf.loginView.loginButton.enabled = YES;
         if( code == 1 ){
             [dataHelper helper].sessionid = data;
-            NSString *account = weakSelf.loginView.accountTextField.text;
+            NSString *account = weakSelf.loginView.accountTextField.text.lowercaseString;
             [dataHelper helper].loginAccount = account;
             [dataHelper helper].password = weakSelf.loginView.passwordTextField.text;
             [dataHelper helper].sessionTimeout = NO;
@@ -133,7 +133,7 @@
             }
             [weakSelf.navigationController pushViewController:[mainVC viewController] animated:YES];
             [[aliveHelper helper] startKeepAlive];
-            [[aliveHelper helper] startKeepAlive];
+            [[aliveHelper helper] startTimoutChecking];
             [[aliveHelper helper] fire];
         }
         else if( data.length > 0 ){
@@ -305,6 +305,7 @@
     [[aliveHelper helper] stopTimoutChecking];
     [dataHelper helper].sessionid = nil;
     [dataHelper helper].sessionTimeout = NO;
+    [dataHelper helper].portraitImage = nil;
     [self requestVerifyCodeImage];
 }
 

@@ -134,6 +134,7 @@
 @property IBOutlet UIButton *systemMsgButton;
 @property IBOutlet UIButton *portraitButton;
 @property IBOutlet UIButton *nickNameButton;
+@property IBOutlet UILabel *badgeLabel;
 @property UIAlertView *logoutAlert;
 @property BOOL balanceIsRefreshing;
 @property BOOL favoritesIsRefreshing;
@@ -152,6 +153,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _badgeLabel.layer.cornerRadius = 8;
+    _badgeLabel.layer.masksToBounds = YES;
+    _badgeLabel.hidden = YES;
+    [dataHelper helper].badgeLabel = _badgeLabel;
     _balanceRefreshingView = [[SRRefreshView alloc] init];
     _balanceRefreshingView.delegate = self;
     _balanceRefreshingView.upInset = 0;
@@ -235,6 +240,12 @@
         if( code == 1 ){
             NSArray *arr = (NSArray*)data;
             NSDictionary *info = arr.firstObject;
+            NSNumber *Id = [info objectForKey:@"id"];
+            if( Id ){
+                [dataHelper helper].loginUserId = Id.intValue;
+            }
+            [dataHelper helper].loginUserNo = [info objectForKey:@"userno"];
+            [dataHelper helper].userName = [info objectForKey:@"username"];
             NSString *nickName = [info objectForKey:@"name"];
             [dataHelper helper].nickName = nickName;
             [weakSelf.nickNameButton setTitle:nickName forState:UIControlStateNormal];
@@ -242,7 +253,7 @@
             CGRect nickNameFrame = weakSelf.nickNameButton.frame;
             nickNameFrame.size = CGSizeMake(size.width+10, size.height);
             weakSelf.nickNameButton.frame = nickNameFrame;
-            NSString *user_avatar = [info objectForKey:@"user_avatar"];
+            NSString *user_avatar = [info objectForKey:@"avatar"];
             if( user_avatar ){
                 NSData *imageData = [[NSData alloc] initWithBase64EncodedString:user_avatar options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 UIImage *image = [UIImage imageWithData:imageData];
@@ -495,9 +506,11 @@
         return;
     }
     
+    /*
     if( [dataHelper helper].qrySystemMsgListSrv.msgs.count == 0 ){
         return;
     }
+    */
     msgListVC *vc = [msgListVC viewController];
     vc.msgs = _qrySystemMsgListSrv.msgs;
     vc.forSystem = YES;
@@ -522,12 +535,15 @@
         return;
     }
     
+    /*
     if( _qryUserMsgListSrv.msgs.count == 0 )
     {
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"暂时无用户消息！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [av show];
         return;
     }
+    */
+    _badgeLabel.hidden = YES;
     
     msgListVC *vc = [msgListVC viewController];
     vc.msgs = _qryUserMsgListSrv.msgs;
@@ -555,10 +571,7 @@
     vc.block = ^(UIImage *portrait, NSString *nickName){
         if( portrait ){
             CGRect portraitFrame = _portraitButton.frame;
-            CGFloat height = portraitFrame.size.height;
-            CGFloat width = (portrait.size.width / portrait.size.height) * height;
-            portraitFrame.size = CGSizeMake(width, height);
-            _portraitButton.frame = portraitFrame;
+            portraitFrame.size = portrait.size;
             [_portraitButton setImage:portrait forState:UIControlStateNormal];
         }
         
@@ -571,9 +584,9 @@
         }
         
     };
-    _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
-    _pop.popoverContentSize = CGSizeMake(600, 497);
-    [_pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
+    [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [dataHelper helper].pop.popoverContentSize = CGSizeMake(600, 497);
+    [[dataHelper helper].pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
 }
 
 #pragma mark- UIAlertViewDelegate

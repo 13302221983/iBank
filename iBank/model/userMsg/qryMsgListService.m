@@ -55,6 +55,7 @@
         //self.url = [NSString stringWithFormat:@"%@/ibankbizdev/index.php/ibankbiz/user-msg/api?ws=1", [dataHelper helper].host];
         self.soapAction = @"urn:UserMsgControllerwsdl/qryMsgList";
         self.package = @"ibankbiz/user-msg";
+        _msgs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     return self;
 }
@@ -79,13 +80,7 @@
         NSArray *items = [dict objectForKey:@"data"];
         _msgs = [[NSMutableArray alloc] initWithCapacity:0];
         for( NSDictionary *item in items ){
-            MsgObj *msg = [[MsgObj alloc] init];
-            NSNumber *msgId = [item objectForKey:@"id"];
-            msg.msgId = msgId.intValue;
-            msg.sender = [item objectForKey:@"sender"];
-            msg.time = [item objectForKey:@"time"];
-            msg.title = [item objectForKey:@"msg"];
-            [_msgs addObject:msg];
+            [self addMsg:item];
         }
         if( _qryMsgListBlock ){
             _qryMsgListBlock( code.intValue, _msgs );
@@ -105,5 +100,21 @@
     }
 }
 
+- (void)addMsg:(NSDictionary*)data
+{
+    for( MsgObj *msg in _msgs ){
+        NSNumber *msgId = [data objectForKey:@"id"];
+        if( msgId && msgId.intValue == msg.msgId ){
+            return;
+        }
+    }
+    MsgObj *msg = [[MsgObj alloc] init];
+    NSNumber *msgId = [data objectForKey:@"id"];
+    msg.msgId = msgId.intValue;
+    msg.sender = [data objectForKey:@"sender"];
+    msg.time = [data objectForKey:@"time"];
+    msg.title = [data objectForKey:@"msg"];
+    [_msgs addObject:msg];
+}
 
 @end

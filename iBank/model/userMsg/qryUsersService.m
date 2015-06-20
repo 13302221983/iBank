@@ -85,7 +85,9 @@
             if( userId ){
                 user.userId = userId.intValue;
             }
-            [users addObject:user];
+            if( user.userId != [dataHelper helper].loginUserId ){
+                [users addObject:user];
+            }
         }
         if( _qryUserBlock ){
             _qryUserBlock( code.intValue, users );

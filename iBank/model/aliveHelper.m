@@ -111,10 +111,15 @@
         NSTimeInterval timestamp = [NSDate date].timeIntervalSince1970;
         if( timestamp - [dataHelper helper].lastTouchTimestamp > [dataHelper helper].timeoutInterval * 60 ){
             [dataHelper helper].sessionTimeout = YES;
-        }
-        if( ![[dataHelper helper] checkSessionTimeout] )
-        {
-            [self stopTimoutChecking];
+            
+            if( [dataHelper helper].sessionid.length > 0 ){
+                if( [[dataHelper helper].pop isPopoverVisible] ){
+                    [[dataHelper helper].pop dismissPopoverAnimated:YES];
+                }
+                [[dataHelper helper].loginViewController prepareLoginAgain];
+                [[dataHelper helper].loginViewController.navigationController popToRootViewControllerAnimated:YES];
+                [self stopTimoutChecking];
+            }
         }
     }
 }
@@ -124,7 +129,7 @@
     if( ![dataHelper helper].sessionid ){
         return;
     }
-    _timeoutCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
+    _timeoutCheckingTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(onTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)stopTimoutChecking

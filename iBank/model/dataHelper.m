@@ -303,7 +303,7 @@
         return NO;
     }
     else{
-        //[dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
+        [dataHelper helper].lastTouchTimestamp = [NSDate date].timeIntervalSince1970;
         return YES;
     }
 }

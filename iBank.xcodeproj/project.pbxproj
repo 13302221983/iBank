@@ -117,6 +117,7 @@
 		26C76D181B3135DA00B8592D /* userInfo_upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D171B3135DA00B8592D /* userInfo_upload.png */; };
 		26C76D1B1B31B92000B8592D /* setUserInfoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C76D1A1B31B92000B8592D /* setUserInfoService.m */; };
 		26C76D1E1B31BAD100B8592D /* setPortraitService.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C76D1D1B31BAD100B8592D /* setPortraitService.m */; };
+		26C76D201B4D04B600B8592D /* userInfo_textBackground_disable.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C76D1F1B4D04B600B8592D /* userInfo_textBackground_disable.png */; };
 		26C77C211B018ABD0049B636 /* bankCells.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26C77C201B018ABD0049B636 /* bankCells.xib */; };
 		26D53EA81AE8A19500A1A33D /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */; };
 		26D53EE21AEB491A00A1A33D /* 刷新认证码-标准状态.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D53EAA1AEB491A00A1A33D /* 刷新认证码-标准状态.png */; };
@@ -348,6 +349,7 @@
 		26C76D1A1B31B92000B8592D /* setUserInfoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setUserInfoService.m; sourceTree = "<group>"; };
 		26C76D1C1B31BAD100B8592D /* setPortraitService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setPortraitService.h; sourceTree = "<group>"; };
 		26C76D1D1B31BAD100B8592D /* setPortraitService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setPortraitService.m; sourceTree = "<group>"; };
+		26C76D1F1B4D04B600B8592D /* userInfo_textBackground_disable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo_textBackground_disable.png; sourceTree = "<group>"; };
 		26C77C201B018ABD0049B636 /* bankCells.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = bankCells.xib; sourceTree = "<group>"; };
 		26D53EA61AE8A19500A1A33D /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		26D53EA71AE8A19500A1A33D /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 		26C76D0E1B312F9900B8592D /* userInfo */ = {
 			isa = PBXGroup;
 			children = (
+				26C76D1F1B4D04B600B8592D /* userInfo_textBackground_disable.png */,
 				26C76D171B3135DA00B8592D /* userInfo_upload.png */,
 				26C76D151B31336F00B8592D /* userInfo_textBackground.png */,
 				26C76D0F1B312F9900B8592D /* userInfo_Background.png */,
@@ -1034,6 +1037,7 @@
 				26D53F101AEB491A00A1A33D /* loading-背景_01.png in Resources */,
 				26D53F071AEB491A00A1A33D /* 输入框小.png in Resources */,
 				269771061B09BFF3003ADD27 /* 消息-选中状态.png in Resources */,
+				26C76D201B4D04B600B8592D /* userInfo_textBackground_disable.png in Resources */,
 				2697710E1B09C5C2003ADD27 /* 选择日期-标准状态.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

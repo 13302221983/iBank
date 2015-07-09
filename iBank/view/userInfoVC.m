@@ -64,7 +64,7 @@
             setPortraitService *setPortraitSrv = [[setPortraitService alloc] init];
             setPortraitSrv.portrait = weakSelf.portraitImage;
             setPortraitSrv.setPortraitBlock = ^(int status, id msg){
-               [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
+               [indicatorView dismissAtView:weakSelf.view];
                if( status == 1 ){
                     [dataHelper helper].nickName = weakSelf.nickName.text;
                     [dataHelper helper].password = weakSelf.password.text;
@@ -72,7 +72,10 @@
                     if( weakSelf.block ){
                         weakSelf.block( weakSelf.portraitImage, weakSelf.nickName.text );
                     }
-                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                   NSString *message = @"已保存了您所做的修改。";
+                   UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                   [av show];
+                   [weakSelf dismiss];
                 }
                 else{
                     if( [msg isKindOfClass:[NSString class]] ){
@@ -85,7 +88,7 @@
             [setPortraitSrv request];
         }
         else{
-            [indicatorView dismissAtView:[UIApplication sharedApplication].keyWindow];
+            [indicatorView dismissAtView:weakSelf.view];
             if( [data isKindOfClass:[NSString class]] ){
                 NSString *message = (NSString*)data;
                 UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -145,7 +148,7 @@
     NSData *oldPortraitData = UIImageJPEGRepresentation([dataHelper helper].portraitImage, 1.0f);
     if( [oldPortraitData isEqualToData:portraitData] ){
         if( [_nickName.text isEqualToString:[dataHelper helper].nickName] && [_password.text isEqualToString:[dataHelper helper].password] ){
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismiss];
             return;
         }
     }
@@ -177,7 +180,7 @@
     
     _setUserInfoService.nickName = _nickName.text;
     _setUserInfoService.password = _password.text;
-    [indicatorView showMessage:@"正在保存..." atView:[UIApplication sharedApplication].keyWindow];
+    [indicatorView showMessage:@"正在保存..." atView:self.view];
     [_setUserInfoService request];
 }
 
@@ -188,7 +191,7 @@
         return;
     }
     _setPortraitService.portrait = _portraitImage;
-    [indicatorView showMessage:@"正在上传头像..." atView:[UIApplication sharedApplication].keyWindow];
+    [indicatorView showMessage:@"正在上传头像..." atView:self.view];
     [_setPortraitService request];
 }
 
@@ -198,7 +201,7 @@
     {
         return;
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismiss];
 }
 
 - (IBAction)onTouchPortrait:(id)sender
@@ -215,10 +218,11 @@
     _imagePicker.delegate = self;
     if( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] )
     {
-        [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
-        [dataHelper helper].pop.popoverContentSize = CGSizeMake(320, 320);
+        _popController = [[UIPopoverController alloc] initWithContentViewController:_imagePicker];
+        _popController.popoverContentSize = CGSizeMake(320, 320);
+        [dataHelper helper].pop = _popController;
         UIButton *button = (UIButton*)sender;
-        [[dataHelper helper].pop presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+        [_popController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
     }
     else{
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请打开照片库" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -241,13 +245,23 @@
     portraitFrame.size = CGSizeMake(width, height);
     _portraitButton.frame = portraitFrame;
     [_portraitButton setImage:_portraitImage forState:UIControlStateNormal];
-    [_imagePicker dismissViewControllerAnimated:YES completion:^(void){
-    }];
+    [_popController dismissPopoverAnimated:YES];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     ;
+}
+
+
+- (void)dismiss
+{
+    if( _popover ){
+        [_popover dismissPopoverAnimated:YES];
+    }
+    else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

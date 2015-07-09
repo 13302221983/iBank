@@ -568,6 +568,8 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     userInfoVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"userInfo"];
+    _pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    vc.popover = _pop;
     vc.block = ^(UIImage *portrait, NSString *nickName){
         if( portrait ){
             CGRect portraitFrame = _portraitButton.frame;
@@ -584,7 +586,7 @@
         }
         
     };
-    [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:vc];
+    [dataHelper helper].pop = _pop;
     [dataHelper helper].pop.popoverContentSize = CGSizeMake(600, 497);
     [[dataHelper helper].pop presentPopoverFromRect:CGRectMake(self.view.center.x, self.view.center.y, 1, 1) inView:self.view permittedArrowDirections:0 animated:YES];
 }

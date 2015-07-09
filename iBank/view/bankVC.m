@@ -455,11 +455,13 @@
     vc.selectedMonth = _month.integerValue;
     vc.selectedYear = _year.integerValue;
     vc.block = ^(NSInteger year, NSInteger month){
-        [_pop dismissPopoverAnimated:YES];
-        _year = [NSString stringWithFormat:@"%ld", year];
-        _month = [NSString stringWithFormat:@"%02ld", month];
-        [_yearMonthButton setTitle:[NSString stringWithFormat:@"%@-%@", _year,_month] forState:UIControlStateNormal];
-        [self loadData];
+        [[dataHelper helper].pop dismissPopoverAnimated:YES];
+        if( year > 0 && month > 0 ){
+            _year = [NSString stringWithFormat:@"%ld", year];
+            _month = [NSString stringWithFormat:@"%02ld", month];
+            [_yearMonthButton setTitle:[NSString stringWithFormat:@"%@-%@", _year,_month] forState:UIControlStateNormal];
+            [self loadData];
+        }
     };
     vc.isPopOver = YES;
     [dataHelper helper].pop = [[UIPopoverController alloc] initWithContentViewController:vc];

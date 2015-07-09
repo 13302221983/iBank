@@ -47,13 +47,19 @@
     }
     NSDictionary* infoDict =[[NSBundle mainBundle] infoDictionary];
     NSString* version =[infoDict objectForKey:@"CFBundleShortVersionString"];
-    _label1.text = [NSString stringWithFormat:@"Ntrualbit iBankBiz %ld （%@）", [Utility currentDateComponents].year, version];
+    _label1.text = [NSString stringWithFormat:@"Ntrualbit iBankBiz 2014 （%@）", version];
+    _label3.text = [NSString stringWithFormat:@" 版权所有 （2014-%ld）天工物源科技有限公司", [Utility currentDateComponents].year];
     UIImage *logo2Img = [dataHelper helper].logo2Img;
     if( logo2Img ){
         _logo2.image = logo2Img;
     }
     _logo2.layer.masksToBounds = YES;
     _logo2.layer.contentsGravity = kCAGravityResizeAspect;
+    CGRect logo2Frame = _logo2.frame;
+    CGFloat height = logo2Frame.size.height;
+    CGFloat width = (_logo2.image.size.width / _logo2.image.size.height) * height;
+    logo2Frame.size = CGSizeMake(width, height);
+    _logo2.frame = logo2Frame;
     _label6.text = [NSString stringWithFormat:@"S/N: %@", [dataHelper helper].sn];
 }
 

@@ -14,4 +14,6 @@ typedef void(^USER_INFO_BLOCK) (UIImage *portrait, NSString *nickName);
 
 @property (strong) USER_INFO_BLOCK block;
 
+@property (weak) UIPopoverController *popover;
+
 @end
